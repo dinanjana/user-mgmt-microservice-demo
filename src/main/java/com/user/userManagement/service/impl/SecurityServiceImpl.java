@@ -37,7 +37,7 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public void autoLogin(String username, String password) {
+    public boolean login(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
@@ -45,7 +45,9 @@ public class SecurityServiceImpl implements SecurityService {
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            logger.debug(String.format("Auto login %s successfully!", username));
+            logger.info("login {} successfully!", username);
         }
+
+        return usernamePasswordAuthenticationToken.isAuthenticated();
     }
 }
