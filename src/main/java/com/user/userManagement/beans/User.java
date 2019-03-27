@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USER")
-public class User {
+public class User implements Cloneable {
 
     @Id
     private String userName;
@@ -31,6 +31,20 @@ public class User {
     private String emailAddress;
 
     private String companyName;
+
+    public User() {
+
+    }
+
+    public User(User user) {
+        this.userName = user.getUserName();
+        this.password = user.getPassword();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.contactNo = user.getContactNo();
+        this.emailAddress = user.getEmailAddress();
+        this.companyName = user.getCompanyName();
+    }
 
     @OneToOne
     @JoinColumn(name = "role")
@@ -99,4 +113,5 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
 }

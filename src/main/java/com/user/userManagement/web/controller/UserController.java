@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by dinanjanag on 3/20/19.
  */
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -35,7 +38,7 @@ public class UserController {
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @PostMapping("/register")
+    @PostMapping
     public @ResponseBody
     ResponseEntity<String> registration(@RequestBody User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
@@ -49,6 +52,12 @@ public class UserController {
         securityService.login(user.getUserName(), user.getPassword());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public @ResponseBody ResponseEntity<String> updateUser(@RequestBody User user) {
+        userService.update(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/login")

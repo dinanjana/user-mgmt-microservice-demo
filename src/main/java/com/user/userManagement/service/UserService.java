@@ -21,12 +21,18 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRole(roleRepository.getRoleById(user.getRole().getId()));
+        User userCopy = new User(user);
+        userCopy.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userCopy.setRole(roleRepository.getRoleById(user.getRole().getId()));
+        userRepository.save(userCopy);
+    }
+
+    public void update(User user) {
         userRepository.save(user);
     }
 
     public User getUserByUserName (String userName) {
         return userRepository.findUserByUserName(userName);
     }
+
 }
