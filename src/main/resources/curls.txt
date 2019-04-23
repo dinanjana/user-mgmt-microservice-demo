@@ -1,0 +1,3 @@
+curl -X POST localhost:8080/auth/login -H "Content-type:application/json" -d '{"userName": "userName", "password": "password"}'
+
+curl -X POST localhost:8080/auth/users/login -H "Content-type:application/json" -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOlt7ImF1dGhvcml0eSI6IkFETUlOIn1dLCJleHAiOjE1NTU5NDQ2MzZ9.yQdaHNvGN3npO4pufkfjE0s-PT8WWidRWAdbLd4_23x6e6m__a3Xc0JO7YUHV7IGavKDNHp4_iqCPLI_aY6vig" -d '{"userName": "username", "password": "password"}'

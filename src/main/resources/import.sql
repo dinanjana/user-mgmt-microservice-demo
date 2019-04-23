@@ -1,2 +1,2 @@
 INSERT INTO role (id, role) VALUES (1, 'ADMIN');
-INSERT INTO user (user_name, password, email_address, role) VALUES ('admin', '$2a$10$OhM/mjKJX1VsdbbUfJxokuKsrlm.EG9wxkTzGbZ38/dWCNd3MeSsO', 'admin@admin.com', 1);
+INSERT INTO user (user_name, password, email_address, role, active) VALUES ('admin', '$2a$10$OhM/mjKJX1VsdbbUfJxokuKsrlm.EG9wxkTzGbZ38/dWCNd3MeSsO', 'admin@admin.com', 1, true);

@@ -1,15 +1,14 @@
-package com.user.userManagement.beans;
+package com.user.userManagement.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Type;
 
 /**
- * A user is represented in this bean
+ * A user is represented in this beans
  * A user has one role
  * Created by dinanjanag on 3/20/19.
  */
@@ -32,6 +31,13 @@ public class User implements Cloneable {
 
     private String companyName;
 
+    @OneToOne
+    @JoinColumn(name = "role")
+    private Role role;
+
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private boolean active;
+
     public User() {
 
     }
@@ -44,11 +50,8 @@ public class User implements Cloneable {
         this.contactNo = user.getContactNo();
         this.emailAddress = user.getEmailAddress();
         this.companyName = user.getCompanyName();
+        this.active = user.isActive();
     }
-
-    @OneToOne
-    @JoinColumn(name = "role")
-    private Role role;
 
     public String getUserName() {
         return userName;
@@ -114,4 +117,11 @@ public class User implements Cloneable {
         this.role = role;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

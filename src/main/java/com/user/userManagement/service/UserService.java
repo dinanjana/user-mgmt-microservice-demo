@@ -1,6 +1,6 @@
 package com.user.userManagement.service;
 
-import com.user.userManagement.beans.User;
+import com.user.userManagement.entities.User;
 import com.user.userManagement.dao.RoleRepository;
 import com.user.userManagement.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +24,24 @@ public class UserService {
         User userCopy = new User(user);
         userCopy.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userCopy.setRole(roleRepository.getRoleById(user.getRole().getId()));
+        userCopy.setActive(false);
         userRepository.save(userCopy);
     }
 
-    public void update(User user) {
-        userRepository.save(user);
+    public void update(User updatedUser) {
+        User user = userRepository.findUserByUserName(updatedUser.getUserName());
+        updatedUser.setPassword(user.getPassword());
+        userRepository.save(updatedUser);
     }
 
     public User getUserByUserName (String userName) {
         return userRepository.findUserByUserName(userName);
     }
+
+//    public void changeUserActiveState () {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        Set<>
+//        if (auth.getAuthorities())
+//    }
 
 }

@@ -1,4 +1,4 @@
-package com.user.userManagement.beans;
+package com.user.userManagement.entities;
 
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * A role is defined by this bean
+ * A role is defined by this beans
  * One to many relationship is available with users
  * Created by dinanjanag on 3/20/19.
  */

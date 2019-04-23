@@ -1,6 +1,6 @@
 package com.user.userManagement.validator;
 
-import com.user.userManagement.beans.User;
+import com.user.userManagement.entities.User;
 import com.user.userManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

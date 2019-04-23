@@ -1,9 +1,12 @@
 package com.user.userManagement.config;
 
+import com.user.userManagement.filters.JWTAuthenticationFilter;
+import com.user.userManagement.filters.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,13 +33,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-            .csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/users","/users/login*").permitAll()
+        http.csrf().disable().authorizeRequests()
+            .antMatchers(HttpMethod.POST,"/users").permitAll()
             .anyRequest().authenticated()
-                .and()
-            .httpBasic();
+            .and()
+            .addFilter(new JWTAuthenticationFilter(authenticationManager(), userDetailsService))
+            .addFilter(new JWTAuthorizationFilter(authenticationManager()));
+     //       .httpBasic();
     }
 
     @Bean
@@ -45,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 }
